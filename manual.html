@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Olares 基本操作マニュアル</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 18mm 15mm;
+    @bottom-center { content: counter(page); font-size: 9pt; color: #888; } }
+  * { box-sizing: border-box; }
+  body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans CJK JP", sans-serif; color: #1d1d1f; font-size: 10.5pt; line-height: 1.7; margin: 0; }
+  h1 { font-size: 26pt; margin: 0 0 6mm; letter-spacing: .02em; }
+  h2 { font-size: 16pt; border-bottom: 2.5px solid #2f6bff; padding-bottom: 2mm; margin: 0 0 5mm; break-after: avoid; }
+  h3 { font-size: 12pt; margin: 6mm 0 2mm; break-after: avoid; }
+  section { break-before: page; }
+  .cover { height: 250mm; display: flex; flex-direction: column; justify-content: center; }
+  .cover .sub { font-size: 13pt; color: #555; margin-bottom: 14mm; }
+  .cover .meta { font-size: 10pt; color: #666; }
+  .cover img { width: 100%; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,.18); margin-bottom: 10mm; }
+  .toc ol { padding-left: 6mm; font-size: 11.5pt; line-height: 2.1; }
+  figure { margin: 3mm 0 5mm; break-inside: avoid; }
+  figure img { width: 100%; border: 1px solid #d6d6db; border-radius: 4px; display: block; }
+  figure.half img { width: 78%; margin: 0 auto; }
+  figcaption { font-size: 9pt; color: #555; margin-top: 1.5mm; text-align: center; }
+  .step { display: flex; gap: 3mm; align-items: baseline; margin: 5mm 0 1mm; break-after: avoid; }
+  .num { flex: none; background: #2f6bff; color: #fff; border-radius: 50%; width: 7mm; height: 7mm; line-height: 7mm; text-align: center; font-weight: 700; font-size: 10pt; }
+  .step p { margin: 0; }
+  .note { background: #f2f6ff; border-left: 4px solid #2f6bff; padding: 2.5mm 4mm; margin: 4mm 0; border-radius: 3px; break-inside: avoid; }
+  .warn { background: #fff4ef; border-left: 4px solid #f2622e; padding: 2.5mm 4mm; margin: 4mm 0; border-radius: 3px; break-inside: avoid; }
+  table { border-collapse: collapse; width: 100%; margin: 3mm 0 5mm; font-size: 10pt; break-inside: avoid; }
+  th, td { border: 1px solid #d6d6db; padding: 1.8mm 3mm; text-align: left; vertical-align: top; }
+  th { background: #f4f4f6; white-space: nowrap; }
+  b.ui { background: #eef0f4; border-radius: 3px; padding: 0 1.5mm; font-weight: 600; }
+  ul { margin: 1mm 0 3mm; padding-left: 6mm; }
+  body { counter-reset: ch fig; }
+  h2:not(.nonum) { counter-increment: ch; }
+  h2:not(.nonum)::before { content: counter(ch) ". "; }
+  figcaption { counter-increment: fig; }
+  figcaption::before { content: "図" counter(fig) "　"; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>Olares 基本操作マニュアル</h1>
+  <div class="sub">ログインとユーザー追加（LarePass）、デスクトップの使い方、アプリの追加・停止・再開・アンインストール</div>
+  <img src="shots/01-desktop.jpg" alt="">
+  <div class="meta">対象：Olares OS 1.12.7（Olares One）／画面は日本語表示<br>作成日：2026年11月19日</div>
+</div>
+
+<section class="toc">
+  <h2 class="nonum">目次</h2>
+  <ol>
+    <li>Olaresにアクセスする・ログインする</li>
+    <li>LarePassとOlares ID</li>
+    <li>ユーザーを追加する（管理者向け）</li>
+    <li>デスクトップの画面構成</li>
+    <li>アプリを開く・ウィンドウを操作する</li>
+    <li>アプリのバッジと表示の見方</li>
+    <li>アプリを追加する（インストール）</li>
+    <li>アプリを停止する・再開する</li>
+    <li>アプリをアンインストールする</li>
+    <li>アプリの状態とリソースを確認する</li>
+    <li>ファイルマネージャー</li>
+    <li>注意事項・よくある質問</li>
+  </ol>
+  <div class="note">本書のスクリーンショットは実機（Olares One、OS 1.12.7）で撮影しました。インストール〜アンインストールの手順は、軽量なメモアプリ「Memos」を例にしています（撮影後にアンインストール済み）。スマートフォンアプリ LarePass の画面は、Olares公式ドキュメント（Apache License 2.0）の画像を使っています。他のユーザー名はぼかしています。</div>
+</section>
+
+<section>
+  <h2>Olaresにアクセスする・ログインする</h2>
+  <p>Olaresはブラウザから使います。PC・タブレットのブラウザで次のアドレスを開きます。ログインには、スマートフォンの <b class="ui">LarePass</b> アプリ（2章）が必要です。</p>
+  <table>
+    <tr><th>デスクトップ</th><td><code>https://desktop.&lt;ユーザー名&gt;.olares.com</code><br>（例：Olares ID が <code>alice123@olares.com</code> なら <code>https://desktop.alice123.olares.com</code>）</td></tr>
+  </table>
+  <div class="step"><span class="num">1</span><p>アドレスを開くと、未ログインの場合はログイン画面に移動します。</p></div>
+  <div class="step"><span class="num">2</span><p>Olaresのログインパスワードを入力します。</p></div>
+  <div class="step"><span class="num">3</span><p>二段階認証を行います。次のどちらかの方法を使います。</p></div>
+  <ul>
+    <li><b>LarePassで承認</b>：スマートフォンに届くログイン通知を開き、<b class="ui">Confirm（確認）</b> をタップします。</li>
+    <li><b>コードを入力</b>：ログイン画面で「LarePassのワンタイムパスワードで確認」を選び、LarePassの <b class="ui">Settings（設定）</b> › <b class="ui">My Olares</b> カードに表示される6桁のコードを入力します。コードには有効期限があります。</li>
+  </ul>
+  <figure class="half"><img src="shots/doc-confirm-login.png" alt=""><figcaption>LarePassでのログイン承認（左）と6桁のコード表示（右、カード下部の数字）　出典：Olares公式ドキュメント</figcaption></figure>
+  <div class="step"><span class="num">4</span><p>デスクトップ（4章）が表示されれば完了です。</p></div>
+  <div class="note">同じブラウザなら、一度ログインするとしばらくはログインしたままになります。共用PCでは、使い終わったらブラウザを閉じてください。</div>
+</section>
+<section>
+  <h2>LarePassとOlares ID</h2>
+  <h3>LarePassとは</h3>
+  <p>LarePass は Olares 公式のクライアントアプリです。スマートフォン（iOS / Android）版、PC版、Chrome拡張があります。主に次のことに使います。</p>
+  <ul>
+    <li><b>Olares ID の作成・保管</b>：自分の身分証にあたるIDを作り、端末に保管します</li>
+    <li><b>アカウントの有効化（アクティベーション）</b>：管理者が追加したアカウントを使える状態にします（3章）</li>
+    <li><b>ログインの承認</b>：ブラウザでログインするときの二段階認証（1章）</li>
+    <li>そのほか、ファイルの同期、VPN接続、パスワード管理など</li>
+  </ul>
+  <h3>Olares ID</h3>
+  <p>Olares ID は Olares を使うための個人のIDです。メールアドレスのような形をしています。</p>
+  <table>
+    <tr><th>例</th><td><code>alice123@olares.com</code></td></tr>
+    <tr><th>ローカル名</th><td><code>alice123</code>（@の前。デスクトップのアドレスにも使われます）</td></tr>
+    <tr><th>ドメイン</th><td><code>olares.com</code>（@の後ろ。参加するOlaresと同じドメインにする必要があります）</td></tr>
+  </table>
+  <h3>Olares ID を作る（新しく使う人）</h3>
+  <div class="step"><span class="num">1</span><p>スマートフォンに LarePass をインストールして開きます（App Store / Google Play で「LarePass」と検索）。</p></div>
+  <div class="step"><span class="num">2</span><p><b class="ui">Create an account（アカウントを作成）</b> をタップします。</p></div>
+  <div class="step"><span class="num">3</span><p>使いたいIDを入力して <b class="ui">Continue（続行）</b> をタップします。IDは8〜24文字で、使えるのは半角の小文字と数字だけです。</p></div>
+  <div class="step"><span class="num">4</span><p>作成が終わると、ホーム画面にIDが表示されます。作ったID（<code>ローカル名@ドメイン</code>）を管理者に伝えてください。</p></div>
+  <figure class="half"><img src="shots/doc-create-id.png" alt=""><figcaption>LarePassでの Olares ID 作成（左）と作成後のホーム画面（右）　出典：Olares公式ドキュメント</figcaption></figure>
+  <div class="warn"><b>ニーモニックフレーズ（12個の英単語）を必ずバックアップしてください</b><br>Olares ID の持ち主であることを証明する唯一の鍵です。スマートフォンを替えるときや LarePass を入れ直すときに必要になり、なくすとIDを復元できません。ホーム画面の <b class="ui">Backup mnemonic phrase</b> から表示し、紙に書いて安全な場所に保管してください。他人には絶対に教えないでください。</div>
+  <div class="note">IDのドメインは、参加するOlaresと同じでなければなりません。独自ドメインを使う組織の場合は、作る前に管理者に確認してください。</div>
+</section>
+<section>
+  <h2>ユーザーを追加する（管理者向け）</h2>
+  <p>Olaresを複数人で使うときは、管理者が利用者ごとにユーザーを追加します。追加できるのは <b class="ui">スーパー管理者</b> または <b class="ui">管理者</b> だけです。流れは次のとおりです。</p>
+  <table>
+    <tr><th>①利用者</th><td>LarePassで Olares ID を作り、IDを管理者に伝える（2章）</td></tr>
+    <tr><th>②管理者</th><td>設定でユーザーを追加し、ウィザードURLとワンタイムパスワードを利用者に渡す</td></tr>
+    <tr><th>③利用者</th><td>ウィザードとLarePassでアカウントを有効化し、ログインする</td></tr>
+  </table>
+  <h3>② 管理者：ユーザーを追加する</h3>
+  <div class="step"><span class="num">1</span><p><b class="ui">設定</b> › <b class="ui">ユーザー</b> を開き、右下の <b class="ui">ユーザーを追加</b> をクリックします。</p></div>
+  <figure><img src="shots/30-users.jpg" alt=""><figcaption>設定 › ユーザー（他のユーザー名はぼかしています）</figcaption></figure>
+</section>
+<section>
+  <div class="step"><span class="num">2</span><p>次の項目を入力します。</p></div>
+  <table>
+    <tr><th>Olares ID</th><td>利用者が作ったIDの <b>@より前の部分だけ</b>（例：<code>alice123</code>）</td></tr>
+    <tr><th>ロール</th><td><b class="ui">メンバー</b>（一般の利用者）または <b class="ui">管理者</b>。管理者を作れるのはスーパー管理者だけです</td></tr>
+    <tr><th>CPU</th><td>そのユーザーに割り当てるCPU（最小1コア）</td></tr>
+    <tr><th>メモリ</th><td>そのユーザーに割り当てるメモリ（最小3GB。初期値は4GiB）</td></tr>
+  </table>
+  <figure><img src="shots/31-add-user.jpg" alt=""><figcaption>ユーザーを追加</figcaption></figure>
+  <figure class="half"><img src="shots/32-add-user-role.jpg" alt=""><figcaption>ロールの選択肢（管理者／メンバー）</figcaption></figure>
+</section>
+<section>
+  <div class="step"><span class="num">3</span><p><b class="ui">追加</b> をクリックします。完了すると <b>ウィザードURL</b> と <b>ワンタイムパスワード</b> が表示されるので、利用者に渡します。</p></div>
+  <div class="step"><span class="num">4</span><p>利用者が有効化を済ませたかは、<b class="ui">設定</b> › <b class="ui">ユーザー</b> で該当ユーザーを開き、<b class="ui">アカウント情報</b> の <b class="ui">状態</b> 欄で確認できます。同じ画面では、リソースの割り当て変更、パスワードのリセット、ユーザーの削除もできます。</p></div>
+  <figure><img src="shots/33-user-detail.jpg" alt=""><figcaption>アカウント情報（リソース使用量・状態・ロール）</figcaption></figure>
+  <div class="warn">割り当てたCPU・メモリは、そのユーザーが使えるリソースの上限になります。機器全体の空きを超えて割り当てると、ユーザーを追加できないことがあります。ユーザーを削除すると、復元できないデータもあります。削除する前に、本人に必要なデータをバックアップしてもらってください。</div>
+</section>
+<section>
+  <h3>③ 利用者：アカウントを有効化する</h3>
+  <p>Olares本体に触らなくても、ブラウザとスマートフォンだけで有効化できます。</p>
+  <div class="step"><span class="num">1</span><p>管理者から受け取った <b>ウィザードURL</b> をPCのブラウザで開き、何かキーを押して進みます。</p></div>
+  <div class="step"><span class="num">2</span><p><b>ワンタイムパスワード</b> を入力して <b class="ui">Continue（続行）</b> をクリックします。</p></div>
+  <div class="step"><span class="num">3</span><p>表示言語（日本語など）を選びます。選んだ言語は、有効化後のデスクトップにも使われます。</p></div>
+  <div class="step"><span class="num">4</span><p>ブラウザにQRコードが表示されます。LarePassの <b class="ui">Scan QR code（QRコードをスキャン）</b> をタップして読み取ります。</p></div>
+  <figure><img src="shots/doc-activate.png" alt=""><figcaption>ウィザードのQRコード（左）をLarePassの「Scan QR code」（右）で読み取る　出典：Olares公式ドキュメント</figcaption></figure>
+  <div class="step"><span class="num">5</span><p>LarePassの画面の案内に従って、Olaresのログインパスワードを新しく設定します。</p></div>
+  <div class="step"><span class="num">6</span><p>完了すると、LarePassはホーム画面に戻り、ブラウザはログイン画面に移ります。あとは1章の手順でログインします。</p></div>
+  <h3>ロールでできること</h3>
+  <table>
+    <tr><th>操作</th><th>メンバー</th><th>管理者</th><th>スーパー管理者</th></tr>
+    <tr><td>アプリを使う／マーケットから通常のアプリを入れる</td><td>○</td><td>○</td><td>○</td></tr>
+    <tr><td>共有アプリのインストール・停止・削除</td><td>×</td><td>○</td><td>○</td></tr>
+    <tr><td>システムリソースの管理、Olaresの更新</td><td>×</td><td>○</td><td>○</td></tr>
+    <tr><td>メンバーの追加・編集・削除</td><td>×</td><td>○</td><td>○</td></tr>
+    <tr><td>管理者の追加・編集・削除</td><td>×</td><td>×</td><td>○</td></tr>
+  </table>
+  <p style="font-size:9pt;color:#666">スーパー管理者は、Olaresを最初に有効化したユーザーです。</p>
+</section>
+
+<section>
+  <h2>デスクトップの画面構成</h2>
+  <figure><img src="shots/01-desktop.jpg" alt=""><figcaption>デスクトップ</figcaption></figure>
+  <p>画面左のバー（ドック）から主な機能を開けます。上から順に次のとおりです。</p>
+  <table>
+    <tr><th>アイコン</th><th>機能</th></tr>
+    <tr><td>アバター（一番上）</td><td>自分のアカウント情報</td></tr>
+    <tr><td>フォルダ（黄色）</td><td><b class="ui">ファイルマネージャー</b>：ファイルの保存・閲覧（11章）</td></tr>
+    <tr><td>9つの点（黒）</td><td><b class="ui">ランチャー</b>：インストール済みアプリの一覧（5章）</td></tr>
+    <tr><td>買い物袋（青）</td><td><b class="ui">マーケット</b>：アプリの追加・停止・削除（7〜9章）</td></tr>
+    <tr><td>歯車（灰色）</td><td><b class="ui">設定</b>：ユーザー、外観、アプリ、ネットワークなど</td></tr>
+    <tr><td>メーター（青）</td><td><b class="ui">ダッシュボード</b>：CPU・メモリ・GPUなどの使用状況（10章）</td></tr>
+    <tr><td>虫眼鏡</td><td>検索</td></tr>
+    <tr><td>ベル</td><td>通知（赤い点は未読の通知あり）</td></tr>
+  </table>
+  <p>右下のウィジェットには、時刻と <b class="ui">プロセッサ</b>・<b class="ui">ディスク</b>・<b class="ui">メモリ</b> の使用率が表示されます。ドックのアイコン右の小さな点は、そのアプリのウィンドウが開いていることを示します。</p>
+</section>
+
+<section>
+  <h2>アプリを開く・ウィンドウを操作する</h2>
+  <h3>ランチャーからアプリを開く</h3>
+  <div class="step"><span class="num">1</span><p>ドックの <b class="ui">ランチャー</b>（9つの点のアイコン）をクリックします。</p></div>
+  <div class="step"><span class="num">2</span><p>開きたいアプリのアイコンをクリックします。上部の検索欄に名前を入れて絞り込むこともできます。</p></div>
+  <figure><img src="shots/02-launcher.jpg" alt=""><figcaption>ランチャー。名前の左に黄色い点があるアプリは停止中（一部のアプリはぼかしています）</figcaption></figure>
+  <div class="note">アプリが多いとランチャーは複数ページになります。下部の「・・」をクリックしてページを切り替えます。アプリによっては、デスクトップ内ではなくブラウザの新しいタブで開きます。</div>
+  <h3>ウィンドウの操作</h3>
+  <p>ウィンドウ右上のボタンで操作します（左から）。</p>
+  <table>
+    <tr><th>－</th><td>最小化（ドックのアイコンをクリックすると戻る）</td></tr>
+    <tr><th>□</th><td>最大化／元のサイズに戻す</td></tr>
+    <tr><th>↗</th><td>ブラウザの新しいタブで開く</td></tr>
+    <tr><th>×</th><td>閉じる（アプリ自体は動き続けます）</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>アプリのバッジと表示の見方</h2>
+  <p>アプリのアイコンやマーケットのカードには、アプリの種類や状態を表すマークが付いています。</p>
+  <h3>共有アプリのマーク</h3>
+  <div style="display:flex;gap:6mm;align-items:center;break-inside:avoid">
+    <figure style="flex:none;width:32mm;margin:0"><img src="shots/41-badge-shared.jpg" alt=""></figure>
+    <figure style="flex:none;width:50mm;margin:0"><img src="shots/42-router-scope.jpg" alt=""></figure>
+    <p style="margin:0">アイコン右下の <b>緑の丸に人型のマーク</b> は <b>共有アプリ</b> の印です。アプリの詳細ページでは <b class="ui">範囲</b> 欄に「共有アプリ」と表示されます。</p>
+  </div>
+  <ul>
+    <li>共有アプリは、管理者が1つだけインストールし、同じOlaresの全ユーザーが自分のデスクトップから使うアプリです。自分でインストールしなくても使えます。</li>
+    <li>インストール・更新・停止・再開・アンインストールができるのは管理者だけです。管理者が止めると全員が使えなくなります。</li>
+    <li>画面のないバックグラウンドサービスもあります（例：AIゲートウェイの Router、LLM・埋め込みモデル）。マーケットでは「可視エントランスなし」と表示され、他のアプリから呼び出して使います。</li>
+  </ul>
+  <h3>カード右下のタグ</h3>
+  <figure class="half"><img src="shots/40-badge-card.jpg" alt=""><figcaption>マーケット「自分のOlares」のカード（停止済み・Official・アプリから）</figcaption></figure>
+  <table>
+    <tr><th>Official</th><td>公式マーケットから入れたアプリ</td></tr>
+    <tr><th>アプリから</th><td>別のアプリをもとに作られたアプリ（インスタンス）です。例：エンジンベース（Ollama Engine Base など）から作ったモデルのアプリ</td></tr>
+    <tr><th>Clone</th><td>アプリをクローン（複製）して作った2つ目以降のアプリ</td></tr>
+  </table>
+  <h3>状態を表す表示</h3>
+  <table>
+    <tr><th>場所</th><th>表示</th><th>意味</th></tr>
+    <tr><td>ランチャー</td><td>名前の左の黄色い点</td><td>停止中のアプリ</td></tr>
+    <tr><td>ドック</td><td>アイコン右の小さな点</td><td>ウィンドウを開いているアプリ</td></tr>
+    <tr><td>ドック</td><td>ベルの赤い点</td><td>未読の通知がある</td></tr>
+    <tr><td>マーケットのボタン</td><td>開く／実行中</td><td>動作中</td></tr>
+    <tr><td></td><td>停止済み（オレンジ）</td><td>停止中（データは残っている）</td></tr>
+    <tr><td></td><td>更新</td><td>新しいバージョンがある</td></tr>
+    <tr><td>マーケット左メニュー</td><td>「更新」の横の数字</td><td>更新できるアプリの数</td></tr>
+    <tr><td>設定 › アプリ</td><td>緑／赤の点</td><td>実行中／停止済み</td></tr>
+  </table>
+  <div class="note">アイコン左上の小さな印（稲妻など）は、そのアプリのアイコン画像の一部です。Olaresの状態を表すものではありません。</div>
+</section>
+<section>
+  <h2>アプリを追加する（インストール）</h2>
+  <div class="step"><span class="num">1</span><p>ドックの <b class="ui">マーケット</b> を開きます。トップの <b class="ui">発見</b> にはおすすめアプリが並び、左のカテゴリー（エージェント・モデル・ワークスペースなど）から探すこともできます。</p></div>
+  <figure><img src="shots/03-market.jpg" alt=""><figcaption>マーケットのトップ（発見）</figcaption></figure>
+  <div class="step"><span class="num">2</span><p>名前が分かっている場合は、左メニューの <b class="ui">検索</b> を開き、アプリ名を入力して Enter キーを押します。</p></div>
+  <figure><img src="shots/04-search.jpg" alt=""><figcaption>「memos」で検索した結果</figcaption></figure>
+</section>
+
+<section>
+  <div class="step"><span class="num">3</span><p>アプリのカードをクリックすると詳細ページが開きます。<b class="ui">リソース</b> 欄で、必要なCPU・メモリ・ディスク容量を確認します。</p></div>
+  <figure><img src="shots/05-detail.jpg" alt=""><figcaption>アプリの詳細ページ</figcaption></figure>
+  <div class="step"><span class="num">4</span><p><b class="ui">入手</b> をクリックするとボタンが <b class="ui">インストール</b> に変わります（横にダウンロードサイズが表示されます）。もう一度クリックするとインストールが始まります。</p></div>
+  <figure><img src="shots/06-install-btn.jpg" alt=""><figcaption>「入手」→「インストール」に変わったところ</figcaption></figure>
+</section>
+
+<section>
+  <div class="step"><span class="num">5</span><p>インストール中は進み具合が％で表示されます。右の × で中止できます。</p></div>
+  <figure><img src="shots/07-installing.jpg" alt=""><figcaption>インストール中</figcaption></figure>
+  <div class="step"><span class="num">6</span><p>完了するとボタンが <b class="ui">開く</b> に変わり、ランチャーにもアイコンが追加されます。</p></div>
+  <figure><img src="shots/08-installed.jpg" alt=""><figcaption>インストール完了</figcaption></figure>
+</section>
+
+<section>
+  <figure><img src="shots/09-launcher-memos.jpg" alt=""><figcaption>ランチャーに追加されたアイコン（この例では2ページ目）</figcaption></figure>
+  <div class="step"><span class="num">7</span><p>アイコンをクリックしてアプリを開きます。初回起動時はアプリ独自の初期設定（管理者アカウントの作成など）が表示されることがあります。</p></div>
+  <figure><img src="shots/10-memos-open.jpg" alt=""><figcaption>インストールしたアプリを初めて開いたところ（Memosの初期設定画面）</figcaption></figure>
+  <div class="note">アプリによってはインストール時に設定項目（モデルの選択など）を聞かれることがあります。メモリやGPUを多く使うアプリは、空き状況をダッシュボード（10章）で確認してから入れてください。</div>
+</section>
+
+<section>
+  <h2>アプリを停止する・再開する</h2>
+  <p>使わないアプリを停止すると、CPU・メモリ・GPUが解放されます。データは消えません。</p>
+  <h3>停止する</h3>
+  <div class="step"><span class="num">1</span><p>マーケット左下の <b class="ui">自分のOlares</b> を開きます。インストール済みのアプリが一覧表示されます。</p></div>
+  <figure><img src="shots/11-myolares.jpg" alt=""><figcaption>自分のOlares（インストール済みアプリ一覧）</figcaption></figure>
+  <div class="step"><span class="num">2</span><p>対象アプリの <b class="ui">開く</b> ボタン右の <b class="ui">∨</b> をクリックし、<b class="ui">停止</b> を選びます。</p></div>
+  <figure class="half"><img src="shots/12-menu-running.jpg" alt=""><figcaption>動いているアプリのメニュー（停止／アンインストール）</figcaption></figure>
+</section>
+
+<section>
+  <div class="step"><span class="num">3</span><p>ボタンが <b class="ui">停止中</b> になり、しばらくするとオレンジ色の <b class="ui">停止済み</b> に変わります。</p></div>
+  <figure><img src="shots/13-stopping.jpg" alt=""><figcaption>停止中</figcaption></figure>
+  <figure><img src="shots/14-stopped.jpg" alt=""><figcaption>停止済み</figcaption></figure>
+</section>
+
+<section>
+  <h3>再開する</h3>
+  <div class="step"><span class="num">1</span><p><b class="ui">停止済み</b> の右の <b class="ui">∨</b> をクリックし、<b class="ui">再開</b> を選びます。</p></div>
+  <figure class="half"><img src="shots/15-menu-stopped.jpg" alt=""><figcaption>停止済みアプリのメニュー（再開／アンインストール）</figcaption></figure>
+  <div class="step"><span class="num">2</span><p><b class="ui">再開中</b> の表示のあと、ボタンが <b class="ui">開く</b> に戻れば利用できます。</p></div>
+  <figure><img src="shots/16-resuming.jpg" alt=""><figcaption>再開中</figcaption></figure>
+</section>
+
+<section>
+  <figure><img src="shots/17-running.jpg" alt=""><figcaption>再開完了（「開く」に戻った状態）</figcaption></figure>
+  <div class="warn"><b>停止するときの注意</b><br>他のアプリから使われているアプリ（例：AIゲートウェイの Router、LLMや埋め込みモデルのアプリ）を停止すると、それを使うアプリも動かなくなります。共有アプリ（アイコン右下に緑の人型マーク、6章）は管理者だけが停止でき、止めると全ユーザーに影響します。</div>
+</section>
+
+<section>
+  <h2>アプリをアンインストールする</h2>
+  <div class="step"><span class="num">1</span><p><b class="ui">自分のOlares</b> で対象アプリの <b class="ui">∨</b> をクリックし、<b class="ui">アンインストール</b> を選びます（動作中・停止済みのどちらからでも可能）。</p></div>
+  <div class="step"><span class="num">2</span><p>確認画面が出ます。<b class="ui">すべてのローカルデータも削除</b> にチェックが入っていると、アプリ内のデータも消えます。残したい場合はチェックを外します。</p></div>
+  <figure><img src="shots/18-uninstall-dialog.jpg" alt=""><figcaption>アンインストールの確認画面</figcaption></figure>
+  <div class="warn">「すべてのローカルデータも削除」を選んで実行したデータは元に戻せません。必要なデータは先にバックアップしてください。</div>
+  <div class="step"><span class="num">3</span><p><b class="ui">アンインストール</b> をクリックします。ボタンが <b class="ui">アンインストール中</b> になります。</p></div>
+</section>
+
+<section>
+  <figure><img src="shots/19-uninstalling.jpg" alt=""><figcaption>アンインストール中</figcaption></figure>
+  <div class="step"><span class="num">4</span><p>完了すると一覧からアプリが消え、ランチャーのアイコンもなくなります。</p></div>
+  <figure><img src="shots/20-uninstalled.jpg" alt=""><figcaption>アンインストール完了（Memosが一覧から消えた状態）</figcaption></figure>
+</section>
+
+<section>
+  <h2>アプリの状態とリソースを確認する</h2>
+  <h3>設定 › アプリ</h3>
+  <p><b class="ui">設定</b> の <b class="ui">アプリ</b> では、すべてのアプリの状態（緑＝実行中、赤＝停止済み）が一覧で分かります。アプリを選ぶと、権限やアクセス設定などの詳細を確認できます。</p>
+  <figure><img src="shots/23-settings-apps.jpg" alt=""><figcaption>設定 › アプリ</figcaption></figure>
+</section>
+
+<section>
+  <h3>ダッシュボード</h3>
+  <p><b class="ui">ダッシュボード</b> の <b class="ui">概要</b> で、機器全体（クラスター）の CPU・メモリ・ディスク・GPU・ネットワークの使用状況が分かります。左の <b class="ui">アプリ</b> ではアプリごとの使用量を確認できます。</p>
+  <figure><img src="shots/24-dashboard.jpg" alt=""><figcaption>ダッシュボード（概要）</figcaption></figure>
+  <div class="note">メモリやGPUの使用率が赤（80%以上）のときに新しいアプリを入れると、起動しないことがあります。使っていないアプリを停止してから入れてください。</div>
+  <h3>設定のトップ画面</h3>
+  <p>設定のトップでは、パスワード変更、ネットワークアクセスポリシー、Olares OSのバージョン確認ができます。</p>
+  <figure class="half"><img src="shots/22-settings.jpg" alt=""><figcaption>設定のトップ</figcaption></figure>
+</section>
+
+<section>
+  <h2>ファイルマネージャー</h2>
+  <p>ドックの <b class="ui">ファイルマネージャー</b> で、Olaresに保存したファイルを扱います。</p>
+  <figure><img src="shots/21-files.jpg" alt=""><figcaption>ファイルマネージャー（ホーム）</figcaption></figure>
+  <table>
+    <tr><th>ストレージ</th><td>ホーム（ドキュメント・画像・動画・ダウンロードなど）、外部デバイス（USBなど）</td></tr>
+    <tr><th>同期</th><td>My Library：PCなどと同期するライブラリ</td></tr>
+    <tr><th>アプリ</th><td>データ／キャッシュ：各アプリが使うフォルダ</td></tr>
+    <tr><th>共有</th><td>ほかのユーザーと共有しているフォルダ</td></tr>
+  </table>
+  <p>右上のボタンでアップロードやフォルダ作成ができます。PCのファイルをウィンドウにドラッグ＆ドロップしてもアップロードできます。</p>
+</section>
+
+<section>
+  <h2>注意事項・よくある質問</h2>
+  <h3>Q. ウィンドウを閉じるとアプリは止まりますか？</h3>
+  <p>止まりません。× はウィンドウを閉じるだけです。リソースを解放したいときは8章の手順で停止します。</p>
+  <h3>Q. 停止とアンインストールの違いは？</h3>
+  <table>
+    <tr><th></th><th>停止</th><th>アンインストール</th></tr>
+    <tr><th>リソース</th><td>解放される</td><td>解放される</td></tr>
+    <tr><th>データ</th><td>残る</td><td>「すべてのローカルデータも削除」を選ぶと消える</td></tr>
+    <tr><th>元に戻すには</th><td>「再開」ですぐ戻る</td><td>もう一度インストール</td></tr>
+  </table>
+  <h3>Q. アプリのアイコン右下の緑の人型マークは？</h3>
+  <p>共有アプリの印です（6章）。管理者が一度インストールすると、全ユーザーが自分のデスクトップから使えます。停止・削除は管理者だけができ、全ユーザーに影響します。</p>
+  <h3>Q. インストールが進まない・失敗する</h3>
+  <ul>
+    <li>ダッシュボードでメモリ・GPU・ディスクの空きを確認し、不要なアプリを停止する</li>
+    <li>マーケット「自分のOlares」右上の <b class="ui">ログ</b> でエラー内容を確認する</li>
+    <li>通知（ドックのベル）にエラーが届いていないか確認する</li>
+  </ul>
+  <h3>Q. 更新はどうやりますか？</h3>
+  <p>マーケット左メニューの <b class="ui">更新</b> に新しいバージョンのあるアプリが出ます。カードの <b class="ui">更新</b> ボタンで更新します。</p>
+</section>
+
+</body>
+</html>

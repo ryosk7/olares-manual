@@ -1,0 +1,43 @@
+name: Build manual PDF
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Japanese fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+
+      - name: Render PDF with headless Chrome
+        run: |
+          google-chrome --headless=new --disable-gpu --no-sandbox --no-pdf-header-footer \
+            --print-to-pdf="$PWD/olares-manual.pdf" "file://$PWD/manual.html"
+          test -s olares-manual.pdf
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: olares-manual
+          path: olares-manual.pdf
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git fetch --force origin "refs/tags/$GITHUB_REF_NAME:refs/tags/$GITHUB_REF_NAME"
+          gh release create "$GITHUB_REF_NAME" olares-manual.pdf \
+            --title "Olares 基本操作マニュアル $GITHUB_REF_NAME" \
+            --notes-file <(git tag -l --format='%(contents)' "$GITHUB_REF_NAME")

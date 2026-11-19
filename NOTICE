@@ -1,0 +1,15 @@
+Olares 基本操作マニュアル
+
+The following images are taken from the Olares documentation
+(https://github.com/beclab/Olares, docs/public/images/manual), which is
+licensed under the Apache License, Version 2.0
+(http://www.apache.org/licenses/LICENSE-2.0). They are used unmodified.
+
+  shots/doc-create-id.png      <- get-started/create-olares-id-1.12.6.png
+  shots/doc-activate.png       <- get-started/activate-olares1.png
+  shots/doc-confirm-login.png  <- larepass/confirm-login1.png
+
+Olares and LarePass are products of Bytetrade (beclab). This manual is an
+unofficial guide and is not affiliated with or endorsed by them.
+
+All other screenshots were captured from the author's own Olares device.
