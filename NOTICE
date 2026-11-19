@@ -3,8 +3,9 @@ Olares 基本操作マニュアル
 The following images are taken from the Olares documentation
 (https://github.com/beclab/Olares, docs/public/images/manual), which is
 licensed under the Apache License, Version 2.0
-(http://www.apache.org/licenses/LICENSE-2.0). They are modified only by
-blurring the QR codes.
+(http://www.apache.org/licenses/LICENSE-2.0). shots/doc-activate.png is
+modified only by blurring the QR code on the wizard page; the others are
+used unmodified.
 
   shots/doc-create-id.png      <- get-started/create-olares-id-1.12.6.png
   shots/doc-activate.png       <- get-started/activate-olares1.png
