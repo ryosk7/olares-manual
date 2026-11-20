@@ -2,7 +2,10 @@
 
 Olares（Olares One, OS 1.12.7）の基本的な使い方をまとめた、一般ユーザー向けの日本語マニュアルです。
 
-**最新版のPDF:** [Releases](https://github.com/ryosk7/olares-manual/releases/latest) から `olares-manual.pdf` をダウンロードしてください。
+**最新版のPDF:** [Releases](https://github.com/ryosk7/olares-manual/releases/latest) から次のファイルをダウンロードしてください。
+
+- `olares-manual.pdf`：Olares 基本操作マニュアル
+- `olares-voice-input.pdf`：音声入力マニュアル（Faster-Whisper と AnythingLLM で、話して入力する）
 
 ## 内容
 
@@ -19,9 +22,19 @@ Olares（Olares One, OS 1.12.7）の基本的な使い方をまとめた、一�
 11. ファイルマネージャー
 12. 注意事項・よくある質問
 
+## 音声入力マニュアルの内容
+
+1. しくみと必要なもの
+2. Faster-Whisper Large V3 を入れる（管理者）
+3. AnythingLLM を入れる
+4. AnythingLLM を設定する
+5. マイクで話して入力する
+6. 動作確認の結果
+7. 注意事項・よくある質問
+
 ## 更新のしかた
 
-- 原稿は `manual.html`、画像は `shots/` にあります。
+- 原稿は `manual.html`（基本操作）と `voice-input.html`（音声入力）、画像は `shots/` にあります。
 - `main` に push すると PDF がビルドされ、Actions の成果物として確認できます。
 - 新しい版を公開するときは、変更内容をメッセージにした注釈付きタグを push します。
 
@@ -37,6 +50,8 @@ Olares（Olares One, OS 1.12.7）の基本的な使い方をまとめた、一�
 ```sh
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer \
   --print-to-pdf="$PWD/olares-manual.pdf" "file://$PWD/manual.html"
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer \
+  --print-to-pdf="$PWD/olares-voice-input.pdf" "file://$PWD/voice-input.html"
 ```
 
 ## 出典
