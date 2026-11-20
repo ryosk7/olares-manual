@@ -21,16 +21,22 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends fonts-noto-cjk
 
-      - name: Render PDF with headless Chrome
+      - name: Render PDFs with headless Chrome
         run: |
-          google-chrome --headless=new --disable-gpu --no-sandbox --no-pdf-header-footer \
-            --print-to-pdf="$PWD/olares-manual.pdf" "file://$PWD/manual.html"
-          test -s olares-manual.pdf
+          render() {
+            google-chrome --headless=new --disable-gpu --no-sandbox --no-pdf-header-footer \
+              --print-to-pdf="$PWD/$2" "file://$PWD/$1"
+            test -s "$2"
+          }
+          render manual.html olares-manual.pdf
+          render voice-input.html olares-voice-input.pdf
 
       - uses: actions/upload-artifact@v4
         with:
           name: olares-manual
-          path: olares-manual.pdf
+          path: |
+            olares-manual.pdf
+            olares-voice-input.pdf
 
       - name: Publish release
         if: startsWith(github.ref, 'refs/tags/v')
@@ -38,6 +44,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           git fetch --force origin "refs/tags/$GITHUB_REF_NAME:refs/tags/$GITHUB_REF_NAME"
-          gh release create "$GITHUB_REF_NAME" olares-manual.pdf \
-            --title "Olares 基本操作マニュアル $GITHUB_REF_NAME" \
+          gh release create "$GITHUB_REF_NAME" olares-manual.pdf olares-voice-input.pdf \
+            --title "Olares マニュアル $GITHUB_REF_NAME" \
             --notes-file <(git tag -l --format='%(contents)' "$GITHUB_REF_NAME")
